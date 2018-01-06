@@ -1,6 +1,12 @@
 "use strict";
 
-console.log("app.js is running");
+var userName = "Manjunatha D";
+var userAge = 23;
+var userLocation = "Bengaluru";
+
+// JSX Expresssions
+// Wrap them in a pair of moustaches => {userName}
+// They are just JavaScript expressions. You can do something like {userName.toUppercase() + !}, etc
 
 // SyntaxError: src/app.js: Adjacent JSX elements must be wrapped in an enclosing tag
 // wrap the adjacent elements in a div => called 'wrapper div'
@@ -10,19 +16,25 @@ var template = React.createElement(
   React.createElement(
     "h1",
     null,
-    "Manjunatha D"
+    userName
   ),
   React.createElement(
     "p",
     null,
-    "Age: 23"
+    "Age: ",
+    userAge
   ),
   React.createElement(
     "p",
     null,
-    "Location: Bengaluru"
+    "Location: ",
+    userLocation
   )
 );
+
+// You cannot render a object in JSX. React wouldn't know what to do with an object
+// However, you can render object properties inside JSX expressions
+
 var appRoot = document.getElementById("app");
 
 // takes 2 arguments => the JSX template to be rendered, and the element where you want to render it

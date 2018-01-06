@@ -1,14 +1,24 @@
-console.log("app.js is running");
+const userName = "Manjunatha D";
+const userAge = 23;
+const userLocation = "Bengaluru";
+
+// JSX Expresssions
+// Wrap them in a pair of moustaches => {userName}
+// They are just JavaScript expressions. You can do something like {userName.toUppercase() + !}, etc
 
 // SyntaxError: src/app.js: Adjacent JSX elements must be wrapped in an enclosing tag
 // wrap the adjacent elements in a div => called 'wrapper div'
 const template = (
   <div>
-    <h1>Manjunatha D</h1>
-    <p>Age: 23</p>
-    <p>Location: Bengaluru</p>
+    <h1>{userName}</h1>
+    <p>Age: {userAge}</p>
+    <p>Location: {userLocation}</p>
   </div>
 );
+
+// You cannot render a object in JSX. React wouldn't know what to do with an object
+// However, you can render object properties inside JSX expressions
+
 const appRoot = document.getElementById("app");
 
 // takes 2 arguments => the JSX template to be rendered, and the element where you want to render it
