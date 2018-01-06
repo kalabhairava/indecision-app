@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Indecision App</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+    <!-- Loading this in <head> causes Uncaught Error: Target container is not a DOM element
+         This happens because when this script is processed inside head tag, the DOM is not available yet.
+         So document.getElement*() methods do not return a valid DOM node    
+    -->
+    <script src="scripts/app.js"></script>
+</body>
+
+</html>
