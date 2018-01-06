@@ -1,29 +1,63 @@
-const userName = "Manjunatha D";
-const userAge = 23;
-const userLocation = "Bengaluru";
+const app = {
+  title: "Indecision App",
+  subtitle: "Put yourself in the hands of a computer",
+  options: ["One", "Two"]
+};
 
-// JSX Expresssions
-// Wrap them in a pair of moustaches => {userName}
-// They are just JavaScript expressions. You can do something like {userName.toUppercase() + !}, etc
-
-// SyntaxError: src/app.js: Adjacent JSX elements must be wrapped in an enclosing tag
-// wrap the adjacent elements in a div => called 'wrapper div'
-const template = (
+const appTemplate = (
   <div>
-    <h1>{userName}</h1>
-    <p>Age: {userAge}</p>
-    <p>Location: {userLocation}</p>
+    <h1>{app.title ? app.title : "Anonymous App"}</h1>
+    {app.subtitle && <p>{app.subtitle}</p>}
+    {getOptions()}
+    <ul>
+      <li>{app.options[0]}</li>
+      <li>{app.options[1]}</li>
+    </ul>
   </div>
 );
 
-// You cannot render a object in JSX. React wouldn't know what to do with an object
-// However, you can render object properties inside JSX expressions
+function getOptions(options) {
+  if (options && options.length > 0) return <p>Here are your options</p>;
+}
+
+const user = {
+  name: "Manjunatha D",
+  age: 17,
+  location: "Bengaluru"
+};
+
+const userTemplate = (
+  <div>
+    <h1>{user.name ? user.name : "Anonymous"}</h1>
+    {user.age >= 18 && <p>Age: {user.age}</p>}
+    {/* <p>Location: {getLocation(user.location)}</p> */}
+    {getLocation(user.location)}
+  </div>
+);
+
+// Conditional rendereing => call a function inside JSX expression, have all the conditional logic inside that function
+function getLocation(location) {
+  return location && <p>{user.location}</p>;
+}
 
 const appRoot = document.getElementById("app");
 
-// takes 2 arguments => the JSX template to be rendered, and the element where you want to render it
-ReactDOM.render(template, appRoot);
+ReactDOM.render(appTemplate, appRoot);
 
-// To compile JSX using babel, run `babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch` in command line
-// Babel presets are collections of plugins. Set presets so that you don't have to set each of those plugins
-// The preset env consists of ES6/7/8 features
+// You can have JSX expressions inside a pair of curly braces
+// If the JSX expression evaluates to `undefined`, null, or boolean, it will be removed from the DOM (kind of ng-if)
+// You can use ternary operator directly inside JSX expressions
+// undefined, null, and boolean values are ignored by JSX
+
+// If you use an undefined variable inside JSX template, the whole template won't show up. Why??
+
+// -------------------------------------------------------------------------------
+// Condition Rendering
+//
+// 1. Use ternary operator direcly inside JSX expression // handling user.name
+// 2. Call a function inside JSX expression, return JSX template conditionally // handling user.location
+// 3. Use logical AND (&&) // handling user.age
+//
+// Ternary operator is good when you want to do two things, logical AND is good when you want to do one thing,
+// functions are good when you want to do things based on multiple things
+// -------------------------------------------------------------------------------
