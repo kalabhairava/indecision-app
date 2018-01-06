@@ -1,29 +1,15 @@
-"use strict";
-
 console.log("app.js is running");
 
 // SyntaxError: src/app.js: Adjacent JSX elements must be wrapped in an enclosing tag
 // wrap the adjacent elements in a div => called 'wrapper div'
-var template = React.createElement(
-  "div",
-  null,
-  React.createElement(
-    "h1",
-    null,
-    "Manjunatha D"
-  ),
-  React.createElement(
-    "p",
-    null,
-    "Age: 23"
-  ),
-  React.createElement(
-    "p",
-    null,
-    "Location: Bengaluru"
-  )
+const template = (
+  <div>
+    <h1>Manjunatha D</h1>
+    <p>Age: 23</p>
+    <p>Location: Bengaluru</p>
+  </div>
 );
-var appRoot = document.getElementById("app");
+const appRoot = document.getElementById("app");
 
 // takes 2 arguments => the JSX template to be rendered, and the element where you want to render it
 ReactDOM.render(template, appRoot);
