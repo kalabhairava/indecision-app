@@ -5,146 +5,176 @@ import ReactDOM from 'react-dom';
 // Main Container Component
 //-----------------------------------------------------------------------------
 class IndecisionApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      options: []
-    };
+	constructor(props) {
+		super(props);
+		this.state = {
+			options: []
+		};
 
-    this.onAddOption = this.onAddOption.bind(this);
-    this.onChooseWhatToDo = this.onChooseWhatToDo.bind(this);
-    this.onRemoveAll = this.onRemoveAll.bind(this);
-    this.onRemove = this.onRemove.bind(this);
-  }
+		this.onAddOption = this.onAddOption.bind(this);
+		this.onChooseWhatToDo = this.onChooseWhatToDo.bind(this);
+		this.onRemoveAll = this.onRemoveAll.bind(this);
+		this.onRemove = this.onRemove.bind(this);
+	}
 
-  render() {
-    return (
-      <div>
-        <Header title="Indecision App" subtitle="Put yourself in the hands of computer" />
-        <ActionButton
-          onChooseWhatToDo={this.onChooseWhatToDo}
-          hasOptions={this.state.options.length > 0}
-        />
-        <Options options={this.state.options} onRemove={this.onRemove} />
-        <AddOption onAddOption={this.onAddOption} />
-        <button onClick={this.onRemoveAll}> Remove all </button>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<Header
+					title="Indecision App"
+					subtitle="Put yourself in the hands of computer"
+				/>
+				<ActionButton
+					onChooseWhatToDo={this.onChooseWhatToDo}
+					hasOptions={this.state.options.length > 0}
+				/>
+				<Options options={this.state.options} onRemove={this.onRemove} />
+				<AddOption onAddOption={this.onAddOption} />
+				<button onClick={this.onRemoveAll}> Remove all </button>
+			</div>
+		);
+	}
 
-  onAddOption(option) {
-    const { options } = this.state;
+	componentDidMount() {
+		const options = JSON.parse(localStorage.getItem('options')) || [];
+		this.setState(() => ({
+			options
+		}));
+	}
 
-    if (!option) {
-      return 'Option cannot be empty.';
-    } else if (options.includes(option)) {
-      return 'Option already exists. Please enter a new one.';
-    }
+	componentDidUpdate() {
+		localStorage.setItem('options', JSON.stringify(this.state.options));
+	}
 
-    const updatedOptions = [...options, option];
-    this.setState({ options: updatedOptions });
-  }
+	// ----------------------------------------------------------------------------
+	// Class Methods
+	//-----------------------------------------------------------------------------
+	onAddOption(option) {
+		const { options } = this.state;
 
-  onChooseWhatToDo() {
-    const { options } = this.state;
+		if (!option) {
+			return 'Option cannot be empty.';
+		} else if (options.includes(option)) {
+			return 'Option already exists. Please enter a new one.';
+		}
 
-    if (options.length === 0) {
-      alert('Add some options');
-    } else {
-      const choosenOption = Math.floor(Math.random() * options.length);
-      alert(`You should do ${options[choosenOption]}`);
-    }
-  }
+		const updatedOptions = [...options, option];
+		this.setState({ options: updatedOptions });
+	}
 
-  onRemoveAll() {
-    this.setState({ options: [] });
-  }
+	onChooseWhatToDo() {
+		const { options } = this.state;
 
-  onRemove(optionToRemove) {
-    this.setState((prevState) => ({
-      options: prevState.options.filter((option) => option !== optionToRemove)
-    }));
-  }
+		if (options.length === 0) {
+			alert('Add some options');
+		} else {
+			const choosenOption = Math.floor(Math.random() * options.length);
+			alert(`You should do ${options[choosenOption]}`);
+		}
+	}
+
+	onRemoveAll() {
+		this.setState({ options: [] });
+	}
+
+	onRemove(optionToRemove) {
+		this.setState(prevState => ({
+			options: prevState.options.filter(option => option !== optionToRemove)
+		}));
+	}
 }
 
 function Header({ title, subtitle }) {
-  return (
-    <div>
-      <h1> {title} </h1>
-      <h3> {subtitle} </h3>
-    </div>
-  );
+	return (
+		<div>
+			<h1> {title} </h1>
+			<h3> {subtitle} </h3>
+		</div>
+	);
 }
 
 Header.defaultProps = {
-  title: 'Indecision App'
+	title: 'Indecision App'
 };
 
 function ActionButton({ onChooseWhatToDo, hasOptions }) {
-  return (
-    <button onClick={onChooseWhatToDo} disabled={!hasOptions}>
-      What should I do?
-    </button>
-  );
+	return (
+		<button onClick={onChooseWhatToDo} disabled={!hasOptions}>
+			What should I do?
+		</button>
+	);
 }
 
 function Options({ options, onRemove }) {
-  return (
-    <ol>
-      {options.map((option) => <Option key={option} optionText={option} onRemove={onRemove} />)}
-    </ol>
-  );
+	if (options.length > 0) {
+		return (
+			<div>
+				<p> Here are your options:</p>
+				<ol>
+					{options.map(option => (
+						<Option key={option} optionText={option} onRemove={onRemove} />
+					))}
+				</ol>
+			</div>
+		);
+	} else {
+		return <p>Enter some options</p>;
+	}
 }
 
 function Option({ optionText, onRemove }) {
-  return (
-    <li>
-      {optionText}
-      <button onClick={() => onRemove(optionText)}>Remove</button>
-    </li>
-  );
+	return (
+		<li>
+			{optionText}
+			<button onClick={() => onRemove(optionText)}>Remove</button>
+		</li>
+	);
 }
 
 class AddOption extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      option: '',
-      error: undefined
-    };
+	constructor(props) {
+		super(props);
+		this.state = {
+			option: '',
+			error: undefined
+		};
 
-    this.onAddOptionChange = this.onAddOptionChange.bind(this);
-    this.onAddOption = this.onAddOption.bind(this);
-  }
+		this.onAddOptionChange = this.onAddOptionChange.bind(this);
+		this.onAddOption = this.onAddOption.bind(this);
+	}
 
-  render() {
-    return (
-      <form onSubmit={this.onAddOption} autoComplete="off">
-        <input
-          type="text"
-          value={this.state.option}
-          onChange={this.onAddOptionChange}
-          placeholder="Enter option"
-          name="option"
-        />
-        <button type="submit"> Add </button>
-        {this.state.error && <p>{this.state.error}</p>}
-      </form>
-    );
-  }
+	render() {
+		return (
+			<form onSubmit={this.onAddOption} autoComplete="off">
+				<input
+					type="text"
+					value={this.state.option}
+					onChange={this.onAddOptionChange}
+					placeholder="Enter option"
+					name="option"
+				/>
+				<button type="submit"> Add </button>
+				{this.state.error && <p>{this.state.error}</p>}
+			</form>
+		);
+	}
 
-  onAddOptionChange(event) {
-    this.setState({ option: event.target.value });
-  }
+	onAddOptionChange(event) {
+		this.setState({ option: event.target.value });
+	}
 
-  onAddOption(event) {
-    event.preventDefault();
+	onAddOption(event) {
+		event.preventDefault();
 
-    const option = event.target.elements.option.value.trim();
-    const error = this.props.onAddOption(option);
+		const option = event.target.elements.option.value.trim();
+		const error = this.props.onAddOption(option);
 
-    this.setState({ option: '', error });
-  }
+		if (error) {
+			this.setState({ error }); // don't reset the input box if there is an error
+		} else {
+			this.setState({ option: '', error });
+		}
+	}
 }
 
 ReactDOM.render(<IndecisionApp />, document.getElementById('root'));
