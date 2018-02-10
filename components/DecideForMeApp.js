@@ -3,10 +3,12 @@ import Header from './Header';
 import ActionButton from './ActionButton';
 import Options from './Options';
 import AddOption from './AddOption';
+import ResultModal from './ResultModal';
 
 class DecideForMeApp extends React.Component {
 	state = {
-		options: []
+		options: [],
+		selectedOption: undefined
 	};
 
 	// ----------------------------------------------------------------------------
@@ -27,18 +29,11 @@ class DecideForMeApp extends React.Component {
 
 	onChooseWhatToDo = () => {
 		const { options } = this.state;
-
-		if (options.length === 0) {
-			alert('Add some options');
-		} else {
-			const choosenOption = Math.floor(Math.random() * options.length);
-			alert(`You should do ${options[choosenOption]}`);
-		}
+		const selectedOptionIndex = Math.floor(Math.random() * options.length);
+		this.setState({ selectedOption: options[selectedOptionIndex] });
 	};
 
-	onRemoveAll = () => {
-		this.setState({ options: [] });
-	};
+	onRemoveAll = () => this.setState({ options: [] });
 
 	onRemove = optionToRemove => {
 		this.setState(prevState => ({
@@ -46,6 +41,10 @@ class DecideForMeApp extends React.Component {
 		}));
 	};
 
+	onClearSelectedOption = () => this.setState({ selectedOption: undefined });
+	// ----------------------------------------------------------------------------
+	// Lifecycle methods
+	//-----------------------------------------------------------------------------
 	render() {
 		return (
 			<div>
@@ -60,6 +59,10 @@ class DecideForMeApp extends React.Component {
 				<Options options={this.state.options} onRemove={this.onRemove} />
 				<AddOption onAddOption={this.onAddOption} />
 				<button onClick={this.onRemoveAll}> Remove all </button>
+				<ResultModal
+					selectedOption={this.state.selectedOption}
+					onClearSelectedOption={this.onClearSelectedOption}
+				/>
 			</div>
 		);
 	}
