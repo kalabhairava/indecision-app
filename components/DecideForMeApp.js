@@ -42,6 +42,7 @@ class DecideForMeApp extends React.Component {
 	};
 
 	onClearSelectedOption = () => this.setState({ selectedOption: undefined });
+
 	// ----------------------------------------------------------------------------
 	// Lifecycle methods
 	//-----------------------------------------------------------------------------

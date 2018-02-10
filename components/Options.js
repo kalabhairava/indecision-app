@@ -1,14 +1,18 @@
 import React from 'react';
 import Option from './Option';
 
-const Options = function({ options, onRemove }) {
-	if (options.length > 0) {
+const Options = props => {
+	if (props.options.length > 0) {
 		return (
 			<div>
 				<p> Here are your options:</p>
 				<ol>
-					{options.map(option => (
-						<Option key={option} optionText={option} onRemove={onRemove} />
+					{props.options.map(option => (
+						<Option
+							key={option}
+							optionText={option}
+							onRemove={props.onRemove}
+						/>
 					))}
 				</ol>
 			</div>

@@ -1,12 +1,10 @@
 import React from 'react';
 
-const Header = function({ title, subtitle }) {
-	return (
-		<div>
-			<h1> {title} </h1>
-			<h3> {subtitle} </h3>
-		</div>
-	);
-};
+const Header = props => (
+	<div>
+		<h1> {props.title} </h1>
+		<h3> {props.subtitle} </h3>
+	</div>
+);
 
 export default Header;

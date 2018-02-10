@@ -1,11 +1,9 @@
 import React from 'react';
 
-const ActionButton = function({ onChooseWhatToDo, hasOptions }) {
-	return (
-		<button onClick={onChooseWhatToDo} disabled={!hasOptions}>
-			What should I do?
-		</button>
-	);
-};
+const ActionButton = props => (
+	<button onClick={props.onChooseWhatToDo} disabled={!props.hasOptions}>
+		What should I do?
+	</button>
+);
 
 export default ActionButton;
