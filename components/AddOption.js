@@ -1,16 +1,27 @@
 import React from 'react';
 
 class AddOption extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			option: '',
-			error: undefined
-		};
+	state = {
+		option: '',
+		error: undefined
+	};
 
-		this.onAddOptionChange = this.onAddOptionChange.bind(this);
-		this.onAddOption = this.onAddOption.bind(this);
-	}
+	onAddOptionChange = event => {
+		this.setState({ option: event.target.value });
+	};
+
+	onAddOption = event => {
+		event.preventDefault();
+
+		const option = event.target.elements.option.value.trim();
+		const error = this.props.onAddOption(option);
+
+		if (error) {
+			this.setState({ error }); // don't reset the input box if there is an error
+		} else {
+			this.setState({ option: '', error });
+		}
+	};
 
 	render() {
 		return (
@@ -26,23 +37,6 @@ class AddOption extends React.Component {
 				{this.state.error && <p>{this.state.error}</p>}
 			</form>
 		);
-	}
-
-	onAddOptionChange(event) {
-		this.setState({ option: event.target.value });
-	}
-
-	onAddOption(event) {
-		event.preventDefault();
-
-		const option = event.target.elements.option.value.trim();
-		const error = this.props.onAddOption(option);
-
-		if (error) {
-			this.setState({ error }); // don't reset the input box if there is an error
-		} else {
-			this.setState({ option: '', error });
-		}
 	}
 }
 
