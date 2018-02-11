@@ -6,6 +6,7 @@ const ResultModal = props => (
 		isOpen={!!props.selectedOption}
 		onRequestClose={props.onClearSelectedOption}
 		contentLabel="Selected Choice"
+		ariaHideApp={false}
 	>
 		<h3> You should do {props.selectedOption}</h3>
 		<button onClick={props.onClearSelectedOption}>Whoo hoo!!</button>
