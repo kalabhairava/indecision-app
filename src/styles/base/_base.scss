@@ -1,10 +1,17 @@
 html {
-	font-size: 10px;
+  font-size: 10px;
 }
 
 body {
-	font-family: 'QuickSand', 'Lucida Sans', Verdana, sans-serif;
-	font-size: $m-size; // 16px
-	// background: #fd746c; /* fallback for old browsers */
-	// background: linear-gradient(to right, #ff9068a6, #fd736c83);
+  font-family: 'QuickSand', 'Lucida Sans', Verdana, sans-serif;
+  font-size: $m-size; // 16px
+  background-color: $dark-blue;
+}
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
 }
