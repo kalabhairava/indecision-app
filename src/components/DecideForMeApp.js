@@ -50,8 +50,8 @@ class DecideForMeApp extends React.Component {
 		return (
 			<div>
 				<Header
-					title="Decide for me app"
-					subtitle="Put yourself in the hands of computer"
+					title="DECIDE IT FOR ME"
+					subtitle="You don't have to decide everything!"
 				/>
 				<ActionButton
 					onChooseWhatToDo={this.onChooseWhatToDo}

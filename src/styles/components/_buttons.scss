@@ -1,0 +1,12 @@
+.button-large {
+	width: 100%;
+	padding: $s-size;
+	font-size: $l-size;
+}
+
+.button-large--action-button {
+	color: red;
+	background: none;
+	border: 1px solid black;
+	border-bottom: 3px solid black;
+}
