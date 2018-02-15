@@ -1,5 +1,4 @@
 node_modules/
-public/bundle.js
 
 # Erro logs
 yarn-error.log
