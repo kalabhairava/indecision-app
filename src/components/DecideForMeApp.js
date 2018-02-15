@@ -49,7 +49,10 @@ class DecideForMeApp extends React.Component {
   render() {
     return (
       <div>
-        <Header title="DECIDE IT FOR ME" subtitle="You don't have to decide everything!" />
+        <Header
+          title="DECIDE IT FOR ME"
+          subtitle="Don't spend your mental energy on things that don't matter."
+        />
         <div className="container">
           <ActionButton
             onChooseWhatToDo={this.onChooseWhatToDo}

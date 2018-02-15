@@ -3,3 +3,10 @@
   margin: 0 auto;
   padding: 0 $m-size;
 }
+
+// styles for mobile
+@media (max-width: $mobile-max-breakpoint) {
+  .container {
+    width: 90%;
+  }
+}
