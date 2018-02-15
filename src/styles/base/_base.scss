@@ -1,17 +1,21 @@
 html {
-  font-size: 10px;
+	font-size: 10px;
 }
 
 body {
-  font-family: 'QuickSand', 'Lucida Sans', Verdana, sans-serif;
-  font-size: $m-size; // 16px
-  background-color: $dark-blue;
+	font-family: 'QuickSand', 'Lucida Sans', Verdana, sans-serif;
+	font-size: $m-size; // 16px
+	background-color: $dark-blue;
 }
 
 button {
-  cursor: pointer;
+	cursor: pointer;
 
-  &:disabled {
-    cursor: default;
-  }
+	&:disabled {
+		cursor: default;
+	}
+
+	&:focus {
+		outline: none;
+	}
 }
